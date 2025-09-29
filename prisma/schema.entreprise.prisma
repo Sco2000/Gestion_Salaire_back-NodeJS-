@@ -1,0 +1,135 @@
+// schema de la base données globale
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/entreprise"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DSN_ENTREPRISE_ORANGE")
+}
+
+model Employes {
+  id            Int       @id @default(autoincrement())
+  nom           String
+  prenom        String
+  email         String    @unique
+  telephone     String    @unique
+  poste         String
+  date_embauche DateTime
+  date_arret    DateTime? // si le salarié quitte l’entreprise
+
+  typeContrat TypeContrat
+  role        Role        @default(EMPLOYE)
+  statut      Statut      @default(ACTIF)
+
+  bulletins BulletinsSalaire[]
+  Contrat   Contrat[]
+  pointage  Pointages[]
+}
+
+model BulletinsSalaire {
+  id              Int      @id @default(autoincrement())
+  mois            String
+  salaire_base    Decimal? @db.Decimal(10, 2)
+  deductions      Decimal  @default(0.00) @db.Decimal(10, 2)
+  salaire_net     Decimal  @db.Decimal(10, 2)
+  date_generation DateTime @default(now())
+
+  payRunId Int
+  payRun   PayRun @relation(fields: [payRunId], references: [id])
+
+  employeId Int
+  employe   Employes @relation(fields: [employeId], references: [id])
+
+  paiements Paiement[]
+}
+
+model PayRun {
+  id           Int                @id @default(autoincrement())
+  periodeDebut DateTime
+  periodeFin   DateTime
+  statut       PayRunStatut       @default(EN_COURS)
+  bulletins    BulletinsSalaire[]
+  typePayRun   TypePayRun         @default(MENSUEL)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Contrat {
+  id             Int         @id @default(autoincrement())
+  employeId      Int
+  type           TypeContrat
+  salaireFixe    Decimal?    @db.Decimal(10, 2)
+  tauxJournalier Decimal?    @db.Decimal(10, 2)
+  tauxHoraire    Decimal?    @db.Decimal(10, 2)
+  date_embauche  DateTime
+  date_arret     DateTime?
+
+  employe Employes @relation(fields: [employeId], references: [id])
+}
+
+model Pointages {
+  id        Int      @id @default(autoincrement())
+  employeId Int
+  date      DateTime // le jour du pointage
+  entree    DateTime // heure exacte d’arrivée
+  sortie    DateTime // heure exacte de départ
+
+  employe Employes @relation(fields: [employeId], references: [id])
+}
+
+model Paiement {
+  id            Int            @id @default(autoincrement())
+  montant       Decimal
+  mode          ModePaiement
+  statut        StatutPaiement
+  reference     String? // ex: numéro de transaction bancaire
+  date_paiement DateTime       @default(now())
+
+  bulletinId Int
+  bulletin   BulletinsSalaire @relation(fields: [bulletinId], references: [id])
+}
+
+enum ModePaiement {
+  ESPECES
+  VIREMENT
+  CHEQUE
+}
+
+enum StatutPaiement {
+  EN_ATTENTE
+  PAYE
+  ECHEC
+}
+
+enum Statut {
+  ACTIF
+  INACTIF
+}
+
+enum Role {
+  CAISSIER
+  EMPLOYE
+}
+
+enum TypeContrat {
+  CDI
+  CDD
+  JOURNALIER
+  HORAIRE
+}
+
+enum PayRunStatut {
+  EN_COURS
+  VALIDE
+  PAYE
+}
+
+enum TypePayRun {
+  MENSUEL
+  HEBDOMADAIRE
+  JOURNALIER
+}

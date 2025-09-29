@@ -1,0 +1,53 @@
+// schema de la base données entreprie
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/global"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Entreprises {
+  id        Int    @id @default(autoincrement())
+  nom       String
+  email     String @unique
+  telephone String @unique
+  dbKey     String
+  Statut    Statut @default(ACTIF)
+
+  deviseId     Int
+  devises      Devises        @relation(fields: [deviseId], references: [id])
+  Utilisateurs Utilisateurs[]
+}
+
+model Utilisateurs {
+  id           Int         @id @default(autoincrement())
+  nom          String
+  prenom       String
+  login        String      @unique
+  password     String
+  email        String      @unique
+  role         Role
+  entrepriseId Int
+  entreprises  Entreprises @relation(fields: [entrepriseId], references: [id])
+}
+
+model Devises {
+  id          Int           @id @default(autoincrement())
+  libelle     String        @unique
+  entreprises Entreprises[]
+}
+
+enum Statut {
+  ACTIF
+  INACTIF
+}
+
+enum Role {
+  SUPER_ADMIN
+  ADMIN
+  CAISSIER
+}

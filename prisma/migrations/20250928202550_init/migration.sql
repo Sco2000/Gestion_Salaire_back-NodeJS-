@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE `PayRun` ALTER COLUMN `typePayRun` DROP DEFAULT;

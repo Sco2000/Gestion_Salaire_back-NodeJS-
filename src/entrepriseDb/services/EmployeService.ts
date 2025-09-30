@@ -11,6 +11,7 @@ export class EmployeService {
                 { nom: { contains: searchText } },
                 { prenom: { contains: searchText } },
                 { email: { contains: searchText } },
+                { poste: { contains: searchText } },
             ];
         }
 

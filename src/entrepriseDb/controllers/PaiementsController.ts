@@ -19,10 +19,11 @@ export class PaiementsController {
             const searchStatus = (req.query.status as string) || "";
             const searchMode = (req.query.mode as string) || "";
             const searchPaiementStatut = (req.query.paiement as string) || "";
+            const searchDate = req.query.date ? new Date(req.query.EndDate as string) : null;
             const sortBy = (req.query.sortBy as string) || "statut";
             const ordr = (req.query.order as string) === "desc"? "desc" : "asc";
     
-            const employes = await PaiementsService.getAll(entreprisePrisma, offset, limit, searchText, searchStatus, searchMode, searchPaiementStatut, sortBy, ordr, next)
+            const employes = await PaiementsService.getAll(entreprisePrisma, offset, limit, searchText, searchStatus, searchMode, searchPaiementStatut, searchDate, sortBy, ordr, next)
             const total = await PaiementsService.count(entreprisePrisma, searchText, searchStatus, searchMode, searchPaiementStatut,);
     
             const totalPage = Math.ceil(total / limit);

@@ -5,7 +5,7 @@ import { Statut } from "../../../prisma/generated/entreprise/index.js";
 import { NextFunction } from "express";
 
 export class BulletinSalaireService {
-    static async getAll(entreprisePrisma: PrismaClient, offset: number, limit: number, searchText: string, searchStatus: string,  sortBy: string, order: string, next: NextFunction){
+    static async getAll(entreprisePrisma: PrismaClient, offset: number, limit: number, searchText: string, searchStatus: string, searchDate: Date|null,  sortBy: string, order: string, next: NextFunction){
 
         const where: any = {};
         try {
@@ -17,6 +17,10 @@ export class BulletinSalaireService {
                     { email: { contains: searchText } },
                     ],
                 };
+            }
+
+            if (searchDate) {
+                where.date_generation =  { gte: searchDate }
             }
     
             if (searchStatus) {
@@ -63,6 +67,17 @@ export class BulletinSalaireService {
         return await entreprisePrisma.bulletinsSalaire.count({ where });
     }
 
-
+    static async getByCurrentMonth(entreprisePrisma: PrismaClient, next: NextFunction) {
+        const now = new Date();
+        const currentMonth = (now.getMonth() + 1).toString().padStart(2, "0"); // "mm"
+        // Filtre sur le champ mois au format "mm-dd"
+        const bulletinsSalaire = await entreprisePrisma.bulletinsSalaire.findMany({
+            where: {
+                mois: { startsWith: currentMonth + "-" }
+            },
+            include: { employe: true }
+        });
+        return bulletinsSalaire;
+    }
 
 }

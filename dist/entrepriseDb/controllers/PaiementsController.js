@@ -28,9 +28,10 @@ class PaiementsController {
                 const searchStatus = req.query.status || "";
                 const searchMode = req.query.mode || "";
                 const searchPaiementStatut = req.query.paiement || "";
+                const searchDate = req.query.date ? new Date(req.query.EndDate) : null;
                 const sortBy = req.query.sortBy || "statut";
                 const ordr = req.query.order === "desc" ? "desc" : "asc";
-                const employes = yield PaiementsService_js_1.PaiementsService.getAll(entreprisePrisma, offset, limit, searchText, searchStatus, searchMode, searchPaiementStatut, sortBy, ordr, next);
+                const employes = yield PaiementsService_js_1.PaiementsService.getAll(entreprisePrisma, offset, limit, searchText, searchStatus, searchMode, searchPaiementStatut, searchDate, sortBy, ordr, next);
                 const total = yield PaiementsService_js_1.PaiementsService.count(entreprisePrisma, searchText, searchStatus, searchMode, searchPaiementStatut);
                 const totalPage = Math.ceil(total / limit);
                 const data = { page, limit, total, totalPage, employes };

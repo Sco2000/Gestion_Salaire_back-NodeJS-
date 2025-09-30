@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BulletinSalaireService = void 0;
 class BulletinSalaireService {
-    static getAll(entreprisePrisma, offset, limit, searchText, searchStatus, sortBy, order, next) {
+    static getAll(entreprisePrisma, offset, limit, searchText, searchStatus, searchDate, sortBy, order, next) {
         return __awaiter(this, void 0, void 0, function* () {
             const where = {};
             try {
@@ -23,6 +23,9 @@ class BulletinSalaireService {
                             { email: { contains: searchText } },
                         ],
                     };
+                }
+                if (searchDate) {
+                    where.date_generation = { gte: searchDate };
                 }
                 if (searchStatus) {
                     where.employe = Object.assign(Object.assign({}, where.employe), { statut: searchStatus });

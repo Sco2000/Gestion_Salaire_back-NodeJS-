@@ -4,7 +4,7 @@ import { HttpStatusCode } from "../../enum/StatusCode.js";
 import { NextFunction } from "express";
 
 export class PaiementsService {
-    static async getAll(entreprisePrisma: PrismaClient, offset: number, limit: number, searchText: string, searchStatus: string, searchMode: string, searchPaiementStatut: string, sortBy: string, order: string, next: NextFunction) {
+    static async getAll(entreprisePrisma: PrismaClient, offset: number, limit: number, searchText: string, searchStatus: string, searchMode: string, searchPaiementStatut: string, searchDate: Date|null, sortBy: string, order: string, next: NextFunction) {
 
         const where: any = {};
         try {
@@ -14,6 +14,10 @@ export class PaiementsService {
             }
             if (searchPaiementStatut) {
                 where.statut = searchPaiementStatut as StatutPaiement;
+            }
+
+            if (searchDate) {
+                where.date_paiement =  { gte: searchDate }
             }
 
             // Filtre sur l'employé (via le bulletin)

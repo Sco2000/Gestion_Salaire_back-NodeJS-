@@ -1,18 +1,18 @@
 import { PrismaClient } from "../../../prisma/generated/entreprise/index.js";
 import { NextFunction } from "express";
 export declare class BulletinSalaireService {
-    static getAll(entreprisePrisma: PrismaClient, offset: number, limit: number, searchText: string, searchStatus: string, sortBy: string, order: string, next: NextFunction): Promise<({
+    static getAll(entreprisePrisma: PrismaClient, offset: number, limit: number, searchText: string, searchStatus: string, searchDate: Date | null, sortBy: string, order: string, next: NextFunction): Promise<({
         employe: {
             id: number;
+            email: string;
             nom: string;
             prenom: string;
-            email: string;
+            role: import("../../../prisma/generated/entreprise/index.js").$Enums.Role;
             telephone: string;
             poste: string;
             date_embauche: Date;
             date_arret: Date | null;
             typeContrat: import("../../../prisma/generated/entreprise/index.js").$Enums.TypeContrat;
-            role: import("../../../prisma/generated/entreprise/index.js").$Enums.Role;
             statut: import("../../../prisma/generated/entreprise/index.js").$Enums.Statut;
         };
     } & {

@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PaiementsService = void 0;
 class PaiementsService {
-    static getAll(entreprisePrisma, offset, limit, searchText, searchStatus, searchMode, searchPaiementStatut, sortBy, order, next) {
+    static getAll(entreprisePrisma, offset, limit, searchText, searchStatus, searchMode, searchPaiementStatut, searchDate, sortBy, order, next) {
         return __awaiter(this, void 0, void 0, function* () {
             const where = {};
             try {
@@ -21,6 +21,9 @@ class PaiementsService {
                 }
                 if (searchPaiementStatut) {
                     where.statut = searchPaiementStatut;
+                }
+                if (searchDate) {
+                    where.date_paiement = { gte: searchDate };
                 }
                 // Filtre sur l'employé (via le bulletin)
                 if (searchText || searchStatus) {

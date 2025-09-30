@@ -25,9 +25,10 @@ class BulletinSalaireController {
             const offset = (page - 1) * limit;
             const searchText = req.query.search || "";
             const searchStatus = req.query.status || "";
+            const searchDate = req.query.date ? new Date(req.query.date) : null;
             const sortBy = req.query.sortBy || "date_generation";
             const ordr = req.query.order === "desc" ? "desc" : "asc";
-            const bulletinsSalaire = yield BulletinSalaireService_js_1.BulletinSalaireService.getAll(entreprisePrisma, offset, limit, searchText, searchStatus, sortBy, ordr, next);
+            const bulletinsSalaire = yield BulletinSalaireService_js_1.BulletinSalaireService.getAll(entreprisePrisma, offset, limit, searchText, searchStatus, searchDate, sortBy, ordr, next);
             const total = yield BulletinSalaireService_js_1.BulletinSalaireService.count(entreprisePrisma, searchText, searchStatus);
             const totalPage = Math.ceil(total / limit);
             const data = { page, limit, total, totalPage, bulletinsSalaire };

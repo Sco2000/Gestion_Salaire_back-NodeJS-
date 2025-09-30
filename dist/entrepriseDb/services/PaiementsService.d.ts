@@ -1,7 +1,7 @@
 import { PrismaClient } from "../../../prisma/generated/entreprise/index.js";
 import { NextFunction } from "express";
 export declare class PaiementsService {
-    static getAll(entreprisePrisma: PrismaClient, offset: number, limit: number, searchText: string, searchStatus: string, searchMode: string, searchPaiementStatut: string, sortBy: string, order: string, next: NextFunction): Promise<({
+    static getAll(entreprisePrisma: PrismaClient, offset: number, limit: number, searchText: string, searchStatus: string, searchMode: string, searchPaiementStatut: string, searchDate: Date | null, sortBy: string, order: string, next: NextFunction): Promise<({
         bulletin: {
             id: number;
             mois: string;
@@ -14,9 +14,9 @@ export declare class PaiementsService {
         };
     } & {
         id: number;
+        statut: import("../../../prisma/generated/entreprise/index.js").$Enums.StatutPaiement;
         montant: import("../../../prisma/generated/entreprise/runtime/library.js").Decimal;
         mode: import("../../../prisma/generated/entreprise/index.js").$Enums.ModePaiement;
-        statut: import("../../../prisma/generated/entreprise/index.js").$Enums.StatutPaiement;
         reference: string | null;
         date_paiement: Date;
         bulletinId: number;

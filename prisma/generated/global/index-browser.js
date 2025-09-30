@@ -127,6 +127,7 @@ exports.Prisma.EntreprisesScalarFieldEnum = {
   telephone: 'telephone',
   dbKey: 'dbKey',
   Statut: 'Statut',
+  date_creation: 'date_creation',
   deviseId: 'deviseId'
 };
 
@@ -149,6 +150,11 @@ exports.Prisma.DevisesScalarFieldEnum = {
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
 };
 
 exports.Prisma.EntreprisesOrderByRelevanceFieldEnum = {

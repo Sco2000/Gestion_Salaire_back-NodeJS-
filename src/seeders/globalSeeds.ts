@@ -23,6 +23,7 @@ const deviseEUR = await prisma.devises.create({
       email: "orange@exemple.com",
       telephone: "770000001",
       dbKey: "DB_ENTREPRISE_ORANGE",
+      date_creation: new Date("2024-01-01T09:00:00Z"), // 👈 Date forcée,
       Statut: Statut.ACTIF,
       deviseId: deviseFCFA!.id,
     },
@@ -35,6 +36,7 @@ const deviseEUR = await prisma.devises.create({
       telephone: "770000002",
       dbKey: "DB_ENTREPRISE_FREE",
       Statut: Statut.ACTIF,
+      date_creation: new Date("2025-02-01T09:00:00Z"), 
       deviseId: deviseEUR!.id,
     },
   });
@@ -51,7 +53,7 @@ const deviseEUR = await prisma.devises.create({
         email: "fallou@gmail.com",
         password: hashedPassword,
         role: Role.SUPER_ADMIN,
-        entrepriseId: entreprise1.id,
+        entrepriseId: null,
       },
       {
         nom: "Marra",

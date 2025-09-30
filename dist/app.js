@@ -12,6 +12,7 @@ const PayRunRoutes_1 = __importDefault(require("./entrepriseDb/routes/PayRunRout
 const PaiementsRoutes_1 = __importDefault(require("./entrepriseDb/routes/PaiementsRoutes"));
 const AuthMiddleware_1 = require("./middlewares/AuthMiddleware");
 const ErrorController_1 = require("./middlewares/ErrorController");
+const superAdminRoutes_1 = __importDefault(require("./globalDb/routes/superAdminRoutes"));
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
@@ -20,6 +21,7 @@ app.get('/', (req, res) => {
 });
 app.use('/api/auth', authRoutes_1.default);
 app.use(AuthMiddleware_1.AuthMiddleware.authMiddleware);
+app.use('/api/super-admin', superAdminRoutes_1.default);
 app.use('/api/employes', EmployeRoutes_1.default);
 app.use('/api/bulletins', BulletinSalaireRoutes_1.default);
 app.use('/api/payrun', PayRunRoutes_1.default);

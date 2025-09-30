@@ -1,0 +1,1 @@
+{"version":3,"file":"superAdminRoutes.js","sourceRoot":"","sources":["../../../src/globalDb/routes/superAdminRoutes.ts"],"names":[],"mappings":";;;;;AAAA,sDAA8B;AAC9B,wEAAgD;AAChD,8DAAsC;AAEtC,MAAM,MAAM,GAAG,iBAAO,CAAC,MAAM,EAAE,CAAC;AAEhC,MAAM,CAAC,GAAG,CAAC,YAAY,EAAE,yBAAe,CAAC,CAAC;AAC1C,MAAM,CAAC,GAAG,CAAC,OAAO,EAAE,oBAAU,CAAC,CAAC;AAEhC,kBAAe,MAAM,CAAC"}

@@ -11,12 +11,13 @@ datasource db {
 }
 
 model Entreprises {
-  id        Int    @id @default(autoincrement())
-  nom       String
-  email     String @unique
-  telephone String @unique
-  dbKey     String
-  Statut    Statut @default(ACTIF)
+  id            Int       @id @default(autoincrement())
+  nom           String
+  email         String    @unique
+  telephone     String    @unique
+  dbKey         String
+  Statut        Statut    @default(ACTIF)
+  date_creation DateTime? @default(now())
 
   deviseId     Int
   devises      Devises        @relation(fields: [deviseId], references: [id])
@@ -24,15 +25,15 @@ model Entreprises {
 }
 
 model Utilisateurs {
-  id           Int         @id @default(autoincrement())
+  id           Int          @id @default(autoincrement())
   nom          String
   prenom       String
-  login        String      @unique
+  login        String       @unique
   password     String
-  email        String      @unique
+  email        String       @unique
   role         Role
-  entrepriseId Int
-  entreprises  Entreprises @relation(fields: [entrepriseId], references: [id])
+  entrepriseId Int?
+  entreprises  Entreprises? @relation(fields: [entrepriseId], references: [id])
 }
 
 model Devises {

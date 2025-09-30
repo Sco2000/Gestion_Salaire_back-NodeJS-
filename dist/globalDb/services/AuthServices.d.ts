@@ -1,6 +1,18 @@
 import { UserInput } from "../models/UserModel";
 export declare class AuthService {
     static selectUserByLogin(data: UserInput): Promise<{
+        entreprise: null;
+        userConnected: {
+            login: string;
+            password: string;
+            id: number;
+            email: string;
+            nom: string;
+            prenom: string;
+            role: import("../../../prisma/generated/global").$Enums.Role;
+            entrepriseId: number | null;
+        };
+    } | {
         entreprise: ({
             devises: {
                 libelle: string;
@@ -12,6 +24,7 @@ export declare class AuthService {
             telephone: string;
             dbKey: string;
             Statut: import("../../../prisma/generated/global").$Enums.Statut;
+            date_creation: Date | null;
             deviseId: number;
         }) | null;
         userConnected: {
@@ -19,7 +32,7 @@ export declare class AuthService {
             prenom: string;
             nom: string;
             email: string;
-            role: import("../../../prisma/generated/global").$Enums.Role;
+            role: "ADMIN" | "CAISSIER";
             login: string;
         };
     }>;
@@ -30,7 +43,7 @@ export declare class AuthService {
         entreprises: {
             dbKey: string;
             Statut: import("../../../prisma/generated/global").$Enums.Statut;
-        };
+        } | null;
     } & {
         login: string;
         password: string;
@@ -39,7 +52,7 @@ export declare class AuthService {
         nom: string;
         prenom: string;
         role: import("../../../prisma/generated/global").$Enums.Role;
-        entrepriseId: number;
+        entrepriseId: number | null;
     }>;
 }
 //# sourceMappingURL=AuthServices.d.ts.map

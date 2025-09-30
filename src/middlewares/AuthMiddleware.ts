@@ -12,29 +12,36 @@ import { AuthController } from "../globalDb/controllers/AuthController.js";
 import { AuthService } from "../globalDb/services/AuthServices.js";
 dotenv.config();
 
-export const SECRET_KEY = "ma_clef_secrete";
+// export const SECRET_KEY = "ma_clef_secrete";
 
 export class AuthMiddleware
     {
     static async authMiddleware(req: Request, res: Response, next: NextFunction) {
-    const authHeader = req.headers.authorization;
-    if (!authHeader) return res.status(401).json({ error: "Token manquant" });
-
-    const token = authHeader.split(" ")[1];
-     if (!token) return res.status(401).json({ error: "Token manquant" });
-    try {
-        const payload = JWTService.decryptToken(token, JWT_SECRET_KEY) as { user: {login: string, role: string}; entrepriseId: number};
+        const authHeader = req.headers.authorization;
+        if (!authHeader) return res.status(401).json({ error: "Token manquant" });
         
-        req.user = payload.user;
-        req.entreprise = {id: payload.entrepriseId }
-        const userConnecte = await AuthService.verifyUSerByLogin(payload.user)
-        if (userConnecte.entreprises.Statut === Statut.INACTIF) throw {status: HttpStatusCode.FORBIDDEN, message: ErrorsMessagesFr.FORBIDDEN_ACTION};
-        const dsn = process.env[userConnecte.entreprises.dbKey] as string;
+        const token = authHeader.split(" ")[1];
+        if (!token) return res.status(401).json({ error: "Token manquant" });
+        
+        try {
+            const payload = JWTService.decryptToken(token, JWT_SECRET_KEY) as { user: {login: string, role: string}; entrepriseId: number};
+            // console.log(payload);
+         if (!payload.entrepriseId) {
+            const userConnecte = await AuthService.verifyUSerByLogin(payload.user)
+            req.user = userConnecte;
+            
+            return next();
+         }
+         req.user = payload.user;
+         req.entreprise = {id: payload.entrepriseId }
+         const userConnecte = await AuthService.verifyUSerByLogin(payload.user)
+        if (userConnecte.entreprises?.Statut === Statut.INACTIF) throw {status: HttpStatusCode.FORBIDDEN, message: ErrorsMessagesFr.FORBIDDEN_ACTION};
+        const userEntreprise = userConnecte.entreprises as {dbKey: string}
+        const dsn = process.env[userEntreprise.dbKey] as string;
         req.entreprisePrisma = createPrismaClientForEntreprise(dsn);
-
         next();
     } catch (err) {
-        return res.status(403).json({ error: "Token invalide" });
+        next(err)
     }
     };
 

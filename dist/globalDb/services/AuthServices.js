@@ -28,6 +28,9 @@ class AuthService {
             const isMatch = yield bcrypt_1.default.compare(data.password, user.password);
             if (!isMatch)
                 throw { status: StatusCode_js_1.HttpStatusCode.NOT_FOUND, message: ErrorsMessagesFr_js_1.ErrorsMessagesFr.INVALID_INPUT };
+            if (user.role === "SUPER_ADMIN") {
+                return { entreprise: null, userConnected: user };
+            }
             const entreprise = yield prisma_1.default.entreprises.findUnique({
                 where: { id: user.entrepriseId },
                 include: { devises: { select: { libelle: true } } }

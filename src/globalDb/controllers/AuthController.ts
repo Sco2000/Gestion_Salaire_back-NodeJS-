@@ -22,8 +22,13 @@ export class AuthController
       }
 
       const {entreprise, userConnected} = await AuthService.selectUserByLogin(result.data);
-      if(!entreprise) throw { status: HttpStatusCode.BAD_REQUEST, message: ErrorsMessagesFr.INCORRECT_CREDENTIALS }
-      const accesToken = JWTService.cryptData({ user: { login: userConnected.login, role: userConnected.role}, entrepriseId: entreprise.id }, JWT_SECRET_KEY, 1)
+      let accesToken = "";
+      if(!entreprise) {
+        accesToken = JWTService.cryptData({ user: { login: userConnected.login, role: userConnected.role} }, JWT_SECRET_KEY, 1)
+      } else{
+        accesToken = JWTService.cryptData({ user: { login: userConnected.login, role: userConnected.role}, entrepriseId: entreprise?.id }, JWT_SECRET_KEY, 1)
+      }
+
       const refreshToken = JWTService.cryptData({login: userConnected.login,}, JWT_SECRET_KEY)
       return res.json({succes: true, accesToken,refreshToken, userConnected, entreprise});
   }

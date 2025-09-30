@@ -15,8 +15,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthController = void 0;
 const AuthServices_1 = require("../services/AuthServices");
 const UserModel_1 = require("../models/UserModel");
-const ErrorsMessagesFr_js_1 = require("../../enum/ErrorsMessagesFr.js");
-const StatusCode_js_1 = require("../../enum/StatusCode.js");
 const JWTService_1 = require("../../service/JWTService");
 const env_1 = require("../../config/env");
 const dotenv_1 = __importDefault(require("dotenv"));
@@ -32,9 +30,13 @@ class AuthController {
                 });
             }
             const { entreprise, userConnected } = yield AuthServices_1.AuthService.selectUserByLogin(result.data);
-            if (!entreprise)
-                throw { status: StatusCode_js_1.HttpStatusCode.BAD_REQUEST, message: ErrorsMessagesFr_js_1.ErrorsMessagesFr.INCORRECT_CREDENTIALS };
-            const accesToken = JWTService_1.JWTService.cryptData({ user: { login: userConnected.login, role: userConnected.role }, entrepriseId: entreprise.id }, env_1.JWT_SECRET_KEY, 1);
+            let accesToken = "";
+            if (!entreprise) {
+                accesToken = JWTService_1.JWTService.cryptData({ user: { login: userConnected.login, role: userConnected.role } }, env_1.JWT_SECRET_KEY, 1);
+            }
+            else {
+                accesToken = JWTService_1.JWTService.cryptData({ user: { login: userConnected.login, role: userConnected.role }, entrepriseId: entreprise === null || entreprise === void 0 ? void 0 : entreprise.id }, env_1.JWT_SECRET_KEY, 1);
+            }
             const refreshToken = JWTService_1.JWTService.cryptData({ login: userConnected.login, }, env_1.JWT_SECRET_KEY);
             return res.json({ succes: true, accesToken, refreshToken, userConnected, entreprise });
         });

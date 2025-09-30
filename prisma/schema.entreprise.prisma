@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = env("DSN_ENTREPRISE_ORANGE")
+  url      = env("DSN_ENTREPRISE_EXPRESSO_1759235527566")
 }
 
 model Employes {

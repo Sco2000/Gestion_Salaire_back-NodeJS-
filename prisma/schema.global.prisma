@@ -17,6 +17,7 @@ model Entreprises {
   telephone String @unique
   dbKey     String
   Statut    Statut @default(ACTIF)
+  date_creation DateTime? @default(now())
 
   deviseId     Int
   devises      Devises        @relation(fields: [deviseId], references: [id])
@@ -31,8 +32,8 @@ model Utilisateurs {
   password     String
   email     String @unique
   role         Role
-  entrepriseId Int
-  entreprises  Entreprises @relation(fields: [entrepriseId], references: [id])
+  entrepriseId Int?
+  entreprises  Entreprises? @relation(fields: [entrepriseId], references: [id])
 }
 
 model Devises {

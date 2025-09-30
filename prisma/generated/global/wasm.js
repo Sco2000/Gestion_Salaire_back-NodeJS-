@@ -99,6 +99,7 @@ exports.Prisma.EntreprisesScalarFieldEnum = {
   telephone: 'telephone',
   dbKey: 'dbKey',
   Statut: 'Statut',
+  date_creation: 'date_creation',
   deviseId: 'deviseId'
 };
 
@@ -121,6 +122,11 @@ exports.Prisma.DevisesScalarFieldEnum = {
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.NullsOrder = {
+  first: 'first',
+  last: 'last'
 };
 
 exports.Prisma.EntreprisesOrderByRelevanceFieldEnum = {
@@ -168,7 +174,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/ousmane-marra/Bureau/stats/prisma/generated/global",
+      "value": "/home/ousmane-marra/Bureau/Gestion_Salaire_back-NodeJS-/prisma/generated/global",
       "fromEnvVar": null
     },
     "config": {
@@ -182,7 +188,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/home/ousmane-marra/Bureau/stats/prisma/schema.global.prisma",
+    "sourceFilePath": "/home/ousmane-marra/Bureau/Gestion_Salaire_back-NodeJS-/prisma/schema.global.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -196,7 +202,6 @@ const config = {
     "db"
   ],
   "activeProvider": "mysql",
-  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
@@ -205,13 +210,13 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// schema de la base données entreprie\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"./generated/global\"\n}\n\ndatasource db {\n  provider = \"mysql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Entreprises {\n  id        Int    @id @default(autoincrement())\n  nom       String\n  email     String @unique\n  telephone String @unique\n  dbKey     String\n  Statut    Statut @default(ACTIF)\n\n  deviseId     Int\n  devises      Devises        @relation(fields: [deviseId], references: [id])\n  Utilisateurs Utilisateurs[]\n}\n\nmodel Utilisateurs {\n  id           Int         @id @default(autoincrement())\n  nom          String\n  prenom       String\n  login        String      @unique\n  password     String\n  email        String      @unique\n  role         Role\n  entrepriseId Int\n  entreprises  Entreprises @relation(fields: [entrepriseId], references: [id])\n}\n\nmodel Devises {\n  id          Int           @id @default(autoincrement())\n  libelle     String        @unique\n  entreprises Entreprises[]\n}\n\nenum Statut {\n  ACTIF\n  INACTIF\n}\n\nenum Role {\n  SUPER_ADMIN\n  ADMIN\n  CAISSIER\n}\n",
-  "inlineSchemaHash": "d5e0b10cf75a452bc1204ffb2984b8752cf28a3ba5ade53955bf5461ab76f42f",
+  "inlineSchema": "// schema de la base données entreprie\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"./generated/global\"\n}\n\ndatasource db {\n  provider = \"mysql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Entreprises {\n  id            Int       @id @default(autoincrement())\n  nom           String\n  email         String    @unique\n  telephone     String    @unique\n  dbKey         String\n  Statut        Statut    @default(ACTIF)\n  date_creation DateTime? @default(now())\n\n  deviseId     Int\n  devises      Devises        @relation(fields: [deviseId], references: [id])\n  Utilisateurs Utilisateurs[]\n}\n\nmodel Utilisateurs {\n  id           Int          @id @default(autoincrement())\n  nom          String\n  prenom       String\n  login        String       @unique\n  password     String\n  email        String       @unique\n  role         Role\n  entrepriseId Int?\n  entreprises  Entreprises? @relation(fields: [entrepriseId], references: [id])\n}\n\nmodel Devises {\n  id          Int           @id @default(autoincrement())\n  libelle     String        @unique\n  entreprises Entreprises[]\n}\n\nenum Statut {\n  ACTIF\n  INACTIF\n}\n\nenum Role {\n  SUPER_ADMIN\n  ADMIN\n  CAISSIER\n}\n",
+  "inlineSchemaHash": "956092cac6efc58df75d98c20332ee49cb9f9592d0dacbe91e126c4ede966ec5",
   "copyEngine": true
 }
 config.dirname = '/'
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"Entreprises\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"nom\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"telephone\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"dbKey\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"Statut\",\"kind\":\"enum\",\"type\":\"Statut\"},{\"name\":\"deviseId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"devises\",\"kind\":\"object\",\"type\":\"Devises\",\"relationName\":\"DevisesToEntreprises\"},{\"name\":\"Utilisateurs\",\"kind\":\"object\",\"type\":\"Utilisateurs\",\"relationName\":\"EntreprisesToUtilisateurs\"}],\"dbName\":null},\"Utilisateurs\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"nom\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"prenom\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"login\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"role\",\"kind\":\"enum\",\"type\":\"Role\"},{\"name\":\"entrepriseId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"entreprises\",\"kind\":\"object\",\"type\":\"Entreprises\",\"relationName\":\"EntreprisesToUtilisateurs\"}],\"dbName\":null},\"Devises\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"libelle\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"entreprises\",\"kind\":\"object\",\"type\":\"Entreprises\",\"relationName\":\"DevisesToEntreprises\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"Entreprises\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"nom\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"telephone\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"dbKey\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"Statut\",\"kind\":\"enum\",\"type\":\"Statut\"},{\"name\":\"date_creation\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"deviseId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"devises\",\"kind\":\"object\",\"type\":\"Devises\",\"relationName\":\"DevisesToEntreprises\"},{\"name\":\"Utilisateurs\",\"kind\":\"object\",\"type\":\"Utilisateurs\",\"relationName\":\"EntreprisesToUtilisateurs\"}],\"dbName\":null},\"Utilisateurs\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"nom\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"prenom\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"login\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"role\",\"kind\":\"enum\",\"type\":\"Role\"},{\"name\":\"entrepriseId\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"entreprises\",\"kind\":\"object\",\"type\":\"Entreprises\",\"relationName\":\"EntreprisesToUtilisateurs\"}],\"dbName\":null},\"Devises\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"libelle\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"entreprises\",\"kind\":\"object\",\"type\":\"Entreprises\",\"relationName\":\"DevisesToEntreprises\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
 defineDmmfProperty(exports.Prisma, config.runtimeDataModel)
 config.engineWasm = {
   getRuntime: async () => require('./query_engine_bg.js'),

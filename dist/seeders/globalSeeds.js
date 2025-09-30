@@ -32,6 +32,7 @@ function main() {
                 email: "orange@exemple.com",
                 telephone: "770000001",
                 dbKey: "DB_ENTREPRISE_ORANGE",
+                date_creation: new Date("2024-01-01T09:00:00Z"), // 👈 Date forcée,
                 Statut: global_1.Statut.ACTIF,
                 deviseId: deviseFCFA.id,
             },
@@ -43,6 +44,7 @@ function main() {
                 telephone: "770000002",
                 dbKey: "DB_ENTREPRISE_FREE",
                 Statut: global_1.Statut.ACTIF,
+                date_creation: new Date("2025-02-01T09:00:00Z"),
                 deviseId: deviseEUR.id,
             },
         });
@@ -57,7 +59,7 @@ function main() {
                     email: "fallou@gmail.com",
                     password: hashedPassword,
                     role: global_1.Role.SUPER_ADMIN,
-                    entrepriseId: entreprise1.id,
+                    entrepriseId: null,
                 },
                 {
                     nom: "Marra",

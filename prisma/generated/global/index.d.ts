@@ -1138,6 +1138,7 @@ export namespace Prisma {
     telephone: string | null
     dbKey: string | null
     Statut: $Enums.Statut | null
+    date_creation: Date | null
     deviseId: number | null
   }
 
@@ -1148,6 +1149,7 @@ export namespace Prisma {
     telephone: string | null
     dbKey: string | null
     Statut: $Enums.Statut | null
+    date_creation: Date | null
     deviseId: number | null
   }
 
@@ -1158,6 +1160,7 @@ export namespace Prisma {
     telephone: number
     dbKey: number
     Statut: number
+    date_creation: number
     deviseId: number
     _all: number
   }
@@ -1180,6 +1183,7 @@ export namespace Prisma {
     telephone?: true
     dbKey?: true
     Statut?: true
+    date_creation?: true
     deviseId?: true
   }
 
@@ -1190,6 +1194,7 @@ export namespace Prisma {
     telephone?: true
     dbKey?: true
     Statut?: true
+    date_creation?: true
     deviseId?: true
   }
 
@@ -1200,6 +1205,7 @@ export namespace Prisma {
     telephone?: true
     dbKey?: true
     Statut?: true
+    date_creation?: true
     deviseId?: true
     _all?: true
   }
@@ -1297,6 +1303,7 @@ export namespace Prisma {
     telephone: string
     dbKey: string
     Statut: $Enums.Statut
+    date_creation: Date | null
     deviseId: number
     _count: EntreprisesCountAggregateOutputType | null
     _avg: EntreprisesAvgAggregateOutputType | null
@@ -1326,6 +1333,7 @@ export namespace Prisma {
     telephone?: boolean
     dbKey?: boolean
     Statut?: boolean
+    date_creation?: boolean
     deviseId?: boolean
     devises?: boolean | DevisesDefaultArgs<ExtArgs>
     Utilisateurs?: boolean | Entreprises$UtilisateursArgs<ExtArgs>
@@ -1341,10 +1349,11 @@ export namespace Prisma {
     telephone?: boolean
     dbKey?: boolean
     Statut?: boolean
+    date_creation?: boolean
     deviseId?: boolean
   }
 
-  export type EntreprisesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nom" | "email" | "telephone" | "dbKey" | "Statut" | "deviseId", ExtArgs["result"]["entreprises"]>
+  export type EntreprisesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nom" | "email" | "telephone" | "dbKey" | "Statut" | "date_creation" | "deviseId", ExtArgs["result"]["entreprises"]>
   export type EntreprisesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     devises?: boolean | DevisesDefaultArgs<ExtArgs>
     Utilisateurs?: boolean | Entreprises$UtilisateursArgs<ExtArgs>
@@ -1364,6 +1373,7 @@ export namespace Prisma {
       telephone: string
       dbKey: string
       Statut: $Enums.Statut
+      date_creation: Date | null
       deviseId: number
     }, ExtArgs["result"]["entreprises"]>
     composites: {}
@@ -1742,6 +1752,7 @@ export namespace Prisma {
     readonly telephone: FieldRef<"Entreprises", 'String'>
     readonly dbKey: FieldRef<"Entreprises", 'String'>
     readonly Statut: FieldRef<"Entreprises", 'Statut'>
+    readonly date_creation: FieldRef<"Entreprises", 'DateTime'>
     readonly deviseId: FieldRef<"Entreprises", 'Int'>
   }
     
@@ -2323,7 +2334,7 @@ export namespace Prisma {
     password: string
     email: string
     role: $Enums.Role
-    entrepriseId: number
+    entrepriseId: number | null
     _count: UtilisateursCountAggregateOutputType | null
     _avg: UtilisateursAvgAggregateOutputType | null
     _sum: UtilisateursSumAggregateOutputType | null
@@ -2354,7 +2365,7 @@ export namespace Prisma {
     email?: boolean
     role?: boolean
     entrepriseId?: boolean
-    entreprises?: boolean | EntreprisesDefaultArgs<ExtArgs>
+    entreprises?: boolean | Utilisateurs$entreprisesArgs<ExtArgs>
   }, ExtArgs["result"]["utilisateurs"]>
 
 
@@ -2372,13 +2383,13 @@ export namespace Prisma {
 
   export type UtilisateursOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "nom" | "prenom" | "login" | "password" | "email" | "role" | "entrepriseId", ExtArgs["result"]["utilisateurs"]>
   export type UtilisateursInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    entreprises?: boolean | EntreprisesDefaultArgs<ExtArgs>
+    entreprises?: boolean | Utilisateurs$entreprisesArgs<ExtArgs>
   }
 
   export type $UtilisateursPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Utilisateurs"
     objects: {
-      entreprises: Prisma.$EntreprisesPayload<ExtArgs>
+      entreprises: Prisma.$EntreprisesPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       id: number
@@ -2388,7 +2399,7 @@ export namespace Prisma {
       password: string
       email: string
       role: $Enums.Role
-      entrepriseId: number
+      entrepriseId: number | null
     }, ExtArgs["result"]["utilisateurs"]>
     composites: {}
   }
@@ -2729,7 +2740,7 @@ export namespace Prisma {
    */
   export interface Prisma__UtilisateursClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    entreprises<T extends EntreprisesDefaultArgs<ExtArgs> = {}>(args?: Subset<T, EntreprisesDefaultArgs<ExtArgs>>): Prisma__EntreprisesClient<$Result.GetResult<Prisma.$EntreprisesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    entreprises<T extends Utilisateurs$entreprisesArgs<ExtArgs> = {}>(args?: Subset<T, Utilisateurs$entreprisesArgs<ExtArgs>>): Prisma__EntreprisesClient<$Result.GetResult<Prisma.$EntreprisesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3107,6 +3118,25 @@ export namespace Prisma {
      * Limit how many Utilisateurs to delete.
      */
     limit?: number
+  }
+
+  /**
+   * Utilisateurs.entreprises
+   */
+  export type Utilisateurs$entreprisesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Entreprises
+     */
+    select?: EntreprisesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Entreprises
+     */
+    omit?: EntreprisesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: EntreprisesInclude<ExtArgs> | null
+    where?: EntreprisesWhereInput
   }
 
   /**
@@ -4105,6 +4135,7 @@ export namespace Prisma {
     telephone: 'telephone',
     dbKey: 'dbKey',
     Statut: 'Statut',
+    date_creation: 'date_creation',
     deviseId: 'deviseId'
   };
 
@@ -4139,6 +4170,14 @@ export namespace Prisma {
   };
 
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+  export const NullsOrder: {
+    first: 'first',
+    last: 'last'
+  };
+
+  export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 
 
   export const EntreprisesOrderByRelevanceFieldEnum: {
@@ -4196,6 +4235,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'DateTime'
+   */
+  export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime'>
+    
+
+
+  /**
    * Reference to a field of type 'Role'
    */
   export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role'>
@@ -4222,6 +4268,7 @@ export namespace Prisma {
     telephone?: StringFilter<"Entreprises"> | string
     dbKey?: StringFilter<"Entreprises"> | string
     Statut?: EnumStatutFilter<"Entreprises"> | $Enums.Statut
+    date_creation?: DateTimeNullableFilter<"Entreprises"> | Date | string | null
     deviseId?: IntFilter<"Entreprises"> | number
     devises?: XOR<DevisesScalarRelationFilter, DevisesWhereInput>
     Utilisateurs?: UtilisateursListRelationFilter
@@ -4234,6 +4281,7 @@ export namespace Prisma {
     telephone?: SortOrder
     dbKey?: SortOrder
     Statut?: SortOrder
+    date_creation?: SortOrderInput | SortOrder
     deviseId?: SortOrder
     devises?: DevisesOrderByWithRelationInput
     Utilisateurs?: UtilisateursOrderByRelationAggregateInput
@@ -4250,6 +4298,7 @@ export namespace Prisma {
     nom?: StringFilter<"Entreprises"> | string
     dbKey?: StringFilter<"Entreprises"> | string
     Statut?: EnumStatutFilter<"Entreprises"> | $Enums.Statut
+    date_creation?: DateTimeNullableFilter<"Entreprises"> | Date | string | null
     deviseId?: IntFilter<"Entreprises"> | number
     devises?: XOR<DevisesScalarRelationFilter, DevisesWhereInput>
     Utilisateurs?: UtilisateursListRelationFilter
@@ -4262,6 +4311,7 @@ export namespace Prisma {
     telephone?: SortOrder
     dbKey?: SortOrder
     Statut?: SortOrder
+    date_creation?: SortOrderInput | SortOrder
     deviseId?: SortOrder
     _count?: EntreprisesCountOrderByAggregateInput
     _avg?: EntreprisesAvgOrderByAggregateInput
@@ -4280,6 +4330,7 @@ export namespace Prisma {
     telephone?: StringWithAggregatesFilter<"Entreprises"> | string
     dbKey?: StringWithAggregatesFilter<"Entreprises"> | string
     Statut?: EnumStatutWithAggregatesFilter<"Entreprises"> | $Enums.Statut
+    date_creation?: DateTimeNullableWithAggregatesFilter<"Entreprises"> | Date | string | null
     deviseId?: IntWithAggregatesFilter<"Entreprises"> | number
   }
 
@@ -4294,8 +4345,8 @@ export namespace Prisma {
     password?: StringFilter<"Utilisateurs"> | string
     email?: StringFilter<"Utilisateurs"> | string
     role?: EnumRoleFilter<"Utilisateurs"> | $Enums.Role
-    entrepriseId?: IntFilter<"Utilisateurs"> | number
-    entreprises?: XOR<EntreprisesScalarRelationFilter, EntreprisesWhereInput>
+    entrepriseId?: IntNullableFilter<"Utilisateurs"> | number | null
+    entreprises?: XOR<EntreprisesNullableScalarRelationFilter, EntreprisesWhereInput> | null
   }
 
   export type UtilisateursOrderByWithRelationInput = {
@@ -4306,7 +4357,7 @@ export namespace Prisma {
     password?: SortOrder
     email?: SortOrder
     role?: SortOrder
-    entrepriseId?: SortOrder
+    entrepriseId?: SortOrderInput | SortOrder
     entreprises?: EntreprisesOrderByWithRelationInput
     _relevance?: UtilisateursOrderByRelevanceInput
   }
@@ -4322,8 +4373,8 @@ export namespace Prisma {
     prenom?: StringFilter<"Utilisateurs"> | string
     password?: StringFilter<"Utilisateurs"> | string
     role?: EnumRoleFilter<"Utilisateurs"> | $Enums.Role
-    entrepriseId?: IntFilter<"Utilisateurs"> | number
-    entreprises?: XOR<EntreprisesScalarRelationFilter, EntreprisesWhereInput>
+    entrepriseId?: IntNullableFilter<"Utilisateurs"> | number | null
+    entreprises?: XOR<EntreprisesNullableScalarRelationFilter, EntreprisesWhereInput> | null
   }, "id" | "login" | "email">
 
   export type UtilisateursOrderByWithAggregationInput = {
@@ -4334,7 +4385,7 @@ export namespace Prisma {
     password?: SortOrder
     email?: SortOrder
     role?: SortOrder
-    entrepriseId?: SortOrder
+    entrepriseId?: SortOrderInput | SortOrder
     _count?: UtilisateursCountOrderByAggregateInput
     _avg?: UtilisateursAvgOrderByAggregateInput
     _max?: UtilisateursMaxOrderByAggregateInput
@@ -4353,7 +4404,7 @@ export namespace Prisma {
     password?: StringWithAggregatesFilter<"Utilisateurs"> | string
     email?: StringWithAggregatesFilter<"Utilisateurs"> | string
     role?: EnumRoleWithAggregatesFilter<"Utilisateurs"> | $Enums.Role
-    entrepriseId?: IntWithAggregatesFilter<"Utilisateurs"> | number
+    entrepriseId?: IntNullableWithAggregatesFilter<"Utilisateurs"> | number | null
   }
 
   export type DevisesWhereInput = {
@@ -4405,6 +4456,7 @@ export namespace Prisma {
     telephone: string
     dbKey: string
     Statut?: $Enums.Statut
+    date_creation?: Date | string | null
     devises: DevisesCreateNestedOneWithoutEntreprisesInput
     Utilisateurs?: UtilisateursCreateNestedManyWithoutEntreprisesInput
   }
@@ -4416,6 +4468,7 @@ export namespace Prisma {
     telephone: string
     dbKey: string
     Statut?: $Enums.Statut
+    date_creation?: Date | string | null
     deviseId: number
     Utilisateurs?: UtilisateursUncheckedCreateNestedManyWithoutEntreprisesInput
   }
@@ -4426,6 +4479,7 @@ export namespace Prisma {
     telephone?: StringFieldUpdateOperationsInput | string
     dbKey?: StringFieldUpdateOperationsInput | string
     Statut?: EnumStatutFieldUpdateOperationsInput | $Enums.Statut
+    date_creation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     devises?: DevisesUpdateOneRequiredWithoutEntreprisesNestedInput
     Utilisateurs?: UtilisateursUpdateManyWithoutEntreprisesNestedInput
   }
@@ -4437,6 +4491,7 @@ export namespace Prisma {
     telephone?: StringFieldUpdateOperationsInput | string
     dbKey?: StringFieldUpdateOperationsInput | string
     Statut?: EnumStatutFieldUpdateOperationsInput | $Enums.Statut
+    date_creation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deviseId?: IntFieldUpdateOperationsInput | number
     Utilisateurs?: UtilisateursUncheckedUpdateManyWithoutEntreprisesNestedInput
   }
@@ -4448,6 +4503,7 @@ export namespace Prisma {
     telephone: string
     dbKey: string
     Statut?: $Enums.Statut
+    date_creation?: Date | string | null
     deviseId: number
   }
 
@@ -4457,6 +4513,7 @@ export namespace Prisma {
     telephone?: StringFieldUpdateOperationsInput | string
     dbKey?: StringFieldUpdateOperationsInput | string
     Statut?: EnumStatutFieldUpdateOperationsInput | $Enums.Statut
+    date_creation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type EntreprisesUncheckedUpdateManyInput = {
@@ -4466,6 +4523,7 @@ export namespace Prisma {
     telephone?: StringFieldUpdateOperationsInput | string
     dbKey?: StringFieldUpdateOperationsInput | string
     Statut?: EnumStatutFieldUpdateOperationsInput | $Enums.Statut
+    date_creation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deviseId?: IntFieldUpdateOperationsInput | number
   }
 
@@ -4476,7 +4534,7 @@ export namespace Prisma {
     password: string
     email: string
     role: $Enums.Role
-    entreprises: EntreprisesCreateNestedOneWithoutUtilisateursInput
+    entreprises?: EntreprisesCreateNestedOneWithoutUtilisateursInput
   }
 
   export type UtilisateursUncheckedCreateInput = {
@@ -4487,7 +4545,7 @@ export namespace Prisma {
     password: string
     email: string
     role: $Enums.Role
-    entrepriseId: number
+    entrepriseId?: number | null
   }
 
   export type UtilisateursUpdateInput = {
@@ -4497,7 +4555,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    entreprises?: EntreprisesUpdateOneRequiredWithoutUtilisateursNestedInput
+    entreprises?: EntreprisesUpdateOneWithoutUtilisateursNestedInput
   }
 
   export type UtilisateursUncheckedUpdateInput = {
@@ -4508,7 +4566,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    entrepriseId?: IntFieldUpdateOperationsInput | number
+    entrepriseId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type UtilisateursCreateManyInput = {
@@ -4519,7 +4577,7 @@ export namespace Prisma {
     password: string
     email: string
     role: $Enums.Role
-    entrepriseId: number
+    entrepriseId?: number | null
   }
 
   export type UtilisateursUpdateManyMutationInput = {
@@ -4539,7 +4597,7 @@ export namespace Prisma {
     password?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
     role?: EnumRoleFieldUpdateOperationsInput | $Enums.Role
-    entrepriseId?: IntFieldUpdateOperationsInput | number
+    entrepriseId?: NullableIntFieldUpdateOperationsInput | number | null
   }
 
   export type DevisesCreateInput = {
@@ -4611,6 +4669,17 @@ export namespace Prisma {
     not?: NestedEnumStatutFilter<$PrismaModel> | $Enums.Statut
   }
 
+  export type DateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type DevisesScalarRelationFilter = {
     is?: DevisesWhereInput
     isNot?: DevisesWhereInput
@@ -4620,6 +4689,11 @@ export namespace Prisma {
     every?: UtilisateursWhereInput
     some?: UtilisateursWhereInput
     none?: UtilisateursWhereInput
+  }
+
+  export type SortOrderInput = {
+    sort: SortOrder
+    nulls?: NullsOrder
   }
 
   export type UtilisateursOrderByRelationAggregateInput = {
@@ -4639,6 +4713,7 @@ export namespace Prisma {
     telephone?: SortOrder
     dbKey?: SortOrder
     Statut?: SortOrder
+    date_creation?: SortOrder
     deviseId?: SortOrder
   }
 
@@ -4654,6 +4729,7 @@ export namespace Prisma {
     telephone?: SortOrder
     dbKey?: SortOrder
     Statut?: SortOrder
+    date_creation?: SortOrder
     deviseId?: SortOrder
   }
 
@@ -4664,6 +4740,7 @@ export namespace Prisma {
     telephone?: SortOrder
     dbKey?: SortOrder
     Statut?: SortOrder
+    date_creation?: SortOrder
     deviseId?: SortOrder
   }
 
@@ -4716,6 +4793,20 @@ export namespace Prisma {
     _max?: NestedEnumStatutFilter<$PrismaModel>
   }
 
+  export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
   export type EnumRoleFilter<$PrismaModel = never> = {
     equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
     in?: $Enums.Role[]
@@ -4723,9 +4814,20 @@ export namespace Prisma {
     not?: NestedEnumRoleFilter<$PrismaModel> | $Enums.Role
   }
 
-  export type EntreprisesScalarRelationFilter = {
-    is?: EntreprisesWhereInput
-    isNot?: EntreprisesWhereInput
+  export type IntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
+  export type EntreprisesNullableScalarRelationFilter = {
+    is?: EntreprisesWhereInput | null
+    isNot?: EntreprisesWhereInput | null
   }
 
   export type UtilisateursOrderByRelevanceInput = {
@@ -4785,6 +4887,22 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumRoleFilter<$PrismaModel>
     _max?: NestedEnumRoleFilter<$PrismaModel>
+  }
+
+  export type IntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
   export type EntreprisesListRelationFilter = {
@@ -4854,6 +4972,10 @@ export namespace Prisma {
     set?: $Enums.Statut
   }
 
+  export type NullableDateTimeFieldUpdateOperationsInput = {
+    set?: Date | string | null
+  }
+
   export type DevisesUpdateOneRequiredWithoutEntreprisesNestedInput = {
     create?: XOR<DevisesCreateWithoutEntreprisesInput, DevisesUncheckedCreateWithoutEntreprisesInput>
     connectOrCreate?: DevisesCreateOrConnectWithoutEntreprisesInput
@@ -4908,12 +5030,22 @@ export namespace Prisma {
     set?: $Enums.Role
   }
 
-  export type EntreprisesUpdateOneRequiredWithoutUtilisateursNestedInput = {
+  export type EntreprisesUpdateOneWithoutUtilisateursNestedInput = {
     create?: XOR<EntreprisesCreateWithoutUtilisateursInput, EntreprisesUncheckedCreateWithoutUtilisateursInput>
     connectOrCreate?: EntreprisesCreateOrConnectWithoutUtilisateursInput
     upsert?: EntreprisesUpsertWithoutUtilisateursInput
+    disconnect?: EntreprisesWhereInput | boolean
+    delete?: EntreprisesWhereInput | boolean
     connect?: EntreprisesWhereUniqueInput
     update?: XOR<XOR<EntreprisesUpdateToOneWithWhereWithoutUtilisateursInput, EntreprisesUpdateWithoutUtilisateursInput>, EntreprisesUncheckedUpdateWithoutUtilisateursInput>
+  }
+
+  export type NullableIntFieldUpdateOperationsInput = {
+    set?: number | null
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type EntreprisesCreateNestedManyWithoutDevisesInput = {
@@ -4991,6 +5123,17 @@ export namespace Prisma {
     not?: NestedEnumStatutFilter<$PrismaModel> | $Enums.Statut
   }
 
+  export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
+  }
+
   export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel>
     in?: number[]
@@ -5046,6 +5189,31 @@ export namespace Prisma {
     _max?: NestedEnumStatutFilter<$PrismaModel>
   }
 
+  export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel> | null
+    in?: Date[] | string[] | null
+    notIn?: Date[] | string[] | null
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeNullableWithAggregatesFilter<$PrismaModel> | Date | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedDateTimeNullableFilter<$PrismaModel>
+    _max?: NestedDateTimeNullableFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableFilter<$PrismaModel> | number | null
+  }
+
   export type NestedEnumRoleFilter<$PrismaModel = never> = {
     equals?: $Enums.Role | EnumRoleFieldRefInput<$PrismaModel>
     in?: $Enums.Role[]
@@ -5061,6 +5229,33 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedEnumRoleFilter<$PrismaModel>
     _max?: NestedEnumRoleFilter<$PrismaModel>
+  }
+
+  export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntNullableWithAggregatesFilter<$PrismaModel> | number | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedFloatNullableFilter<$PrismaModel>
+    _sum?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedIntNullableFilter<$PrismaModel>
+    _max?: NestedIntNullableFilter<$PrismaModel>
+  }
+
+  export type NestedFloatNullableFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel> | null
+    in?: number[] | null
+    notIn?: number[] | null
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
   export type DevisesCreateWithoutEntreprisesInput = {
@@ -5153,7 +5348,7 @@ export namespace Prisma {
     password?: StringFilter<"Utilisateurs"> | string
     email?: StringFilter<"Utilisateurs"> | string
     role?: EnumRoleFilter<"Utilisateurs"> | $Enums.Role
-    entrepriseId?: IntFilter<"Utilisateurs"> | number
+    entrepriseId?: IntNullableFilter<"Utilisateurs"> | number | null
   }
 
   export type EntreprisesCreateWithoutUtilisateursInput = {
@@ -5162,6 +5357,7 @@ export namespace Prisma {
     telephone: string
     dbKey: string
     Statut?: $Enums.Statut
+    date_creation?: Date | string | null
     devises: DevisesCreateNestedOneWithoutEntreprisesInput
   }
 
@@ -5172,6 +5368,7 @@ export namespace Prisma {
     telephone: string
     dbKey: string
     Statut?: $Enums.Statut
+    date_creation?: Date | string | null
     deviseId: number
   }
 
@@ -5197,6 +5394,7 @@ export namespace Prisma {
     telephone?: StringFieldUpdateOperationsInput | string
     dbKey?: StringFieldUpdateOperationsInput | string
     Statut?: EnumStatutFieldUpdateOperationsInput | $Enums.Statut
+    date_creation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     devises?: DevisesUpdateOneRequiredWithoutEntreprisesNestedInput
   }
 
@@ -5207,6 +5405,7 @@ export namespace Prisma {
     telephone?: StringFieldUpdateOperationsInput | string
     dbKey?: StringFieldUpdateOperationsInput | string
     Statut?: EnumStatutFieldUpdateOperationsInput | $Enums.Statut
+    date_creation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     deviseId?: IntFieldUpdateOperationsInput | number
   }
 
@@ -5216,6 +5415,7 @@ export namespace Prisma {
     telephone: string
     dbKey: string
     Statut?: $Enums.Statut
+    date_creation?: Date | string | null
     Utilisateurs?: UtilisateursCreateNestedManyWithoutEntreprisesInput
   }
 
@@ -5226,6 +5426,7 @@ export namespace Prisma {
     telephone: string
     dbKey: string
     Statut?: $Enums.Statut
+    date_creation?: Date | string | null
     Utilisateurs?: UtilisateursUncheckedCreateNestedManyWithoutEntreprisesInput
   }
 
@@ -5265,6 +5466,7 @@ export namespace Prisma {
     telephone?: StringFilter<"Entreprises"> | string
     dbKey?: StringFilter<"Entreprises"> | string
     Statut?: EnumStatutFilter<"Entreprises"> | $Enums.Statut
+    date_creation?: DateTimeNullableFilter<"Entreprises"> | Date | string | null
     deviseId?: IntFilter<"Entreprises"> | number
   }
 
@@ -5314,6 +5516,7 @@ export namespace Prisma {
     telephone: string
     dbKey: string
     Statut?: $Enums.Statut
+    date_creation?: Date | string | null
   }
 
   export type EntreprisesUpdateWithoutDevisesInput = {
@@ -5322,6 +5525,7 @@ export namespace Prisma {
     telephone?: StringFieldUpdateOperationsInput | string
     dbKey?: StringFieldUpdateOperationsInput | string
     Statut?: EnumStatutFieldUpdateOperationsInput | $Enums.Statut
+    date_creation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Utilisateurs?: UtilisateursUpdateManyWithoutEntreprisesNestedInput
   }
 
@@ -5332,6 +5536,7 @@ export namespace Prisma {
     telephone?: StringFieldUpdateOperationsInput | string
     dbKey?: StringFieldUpdateOperationsInput | string
     Statut?: EnumStatutFieldUpdateOperationsInput | $Enums.Statut
+    date_creation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     Utilisateurs?: UtilisateursUncheckedUpdateManyWithoutEntreprisesNestedInput
   }
 
@@ -5342,6 +5547,7 @@ export namespace Prisma {
     telephone?: StringFieldUpdateOperationsInput | string
     dbKey?: StringFieldUpdateOperationsInput | string
     Statut?: EnumStatutFieldUpdateOperationsInput | $Enums.Statut
+    date_creation?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
 

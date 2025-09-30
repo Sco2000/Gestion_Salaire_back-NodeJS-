@@ -37,6 +37,6 @@ exports.JWT_SECRET_KEY = exports.PORT = void 0;
 const dotenv = __importStar(require("dotenv"));
 // Charge les variables du fichier .env
 dotenv.config();
-exports.PORT = process.env.PORT || 3000;
+exports.PORT = process.env.PORT || 4000;
 exports.JWT_SECRET_KEY = process.env.SECRET_KEY;
 //# sourceMappingURL=env.js.map

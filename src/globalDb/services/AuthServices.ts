@@ -17,10 +17,14 @@ export class AuthService
     const isMatch = await bcrypt.compare(data.password, user.password);
     if (!isMatch) throw { status: HttpStatusCode.NOT_FOUND, message: ErrorsMessagesFr.INVALID_INPUT };
 
+    if(user.role ==="SUPER_ADMIN"){
+      return {entreprise: null, userConnected: user}
+    }
     const entreprise = await globalPrisma.entreprises.findUnique({
-        where: {id : user.entrepriseId},
+        where: {id : user.entrepriseId as number},
         include: {devises: {select: {libelle: true}}}
     })
+    
     const userConnected = {id: user.id, prenom: user.prenom, nom: user.nom, email: user.email, role: user.role, login: user.login}
     return {entreprise, userConnected};
   }

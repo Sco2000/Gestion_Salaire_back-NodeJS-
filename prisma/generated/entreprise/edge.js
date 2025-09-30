@@ -241,7 +241,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/ousmane-marra/Bureau/stats/prisma/generated/entreprise",
+      "value": "/home/ousmane-marra/Bureau/Gestion_Salaire_back-NodeJS-/prisma/generated/entreprise",
       "fromEnvVar": null
     },
     "config": {
@@ -255,7 +255,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/home/ousmane-marra/Bureau/stats/prisma/schema.entreprise.prisma",
+    "sourceFilePath": "/home/ousmane-marra/Bureau/Gestion_Salaire_back-NodeJS-/prisma/schema.entreprise.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -269,17 +269,16 @@ const config = {
     "db"
   ],
   "activeProvider": "mysql",
-  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
-        "fromEnvVar": "DSN_ENTREPRISE_ORANGE",
+        "fromEnvVar": "DSN_ENTREPRISE_EXPRESSO_1759235527566",
         "value": null
       }
     }
   },
-  "inlineSchema": "// schema de la base données globale\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"./generated/entreprise\"\n}\n\ndatasource db {\n  provider = \"mysql\"\n  url      = env(\"DSN_ENTREPRISE_ORANGE\")\n}\n\nmodel Employes {\n  id            Int       @id @default(autoincrement())\n  nom           String\n  prenom        String\n  email         String    @unique\n  telephone     String    @unique\n  poste         String\n  date_embauche DateTime\n  date_arret    DateTime? // si le salarié quitte l’entreprise\n\n  typeContrat TypeContrat\n  role        Role        @default(EMPLOYE)\n  statut      Statut      @default(ACTIF)\n\n  bulletins BulletinsSalaire[]\n  Contrat   Contrat[]\n  pointage  Pointages[]\n}\n\nmodel BulletinsSalaire {\n  id              Int      @id @default(autoincrement())\n  mois            String\n  salaire_base    Decimal? @db.Decimal(10, 2)\n  deductions      Decimal  @default(0.00) @db.Decimal(10, 2)\n  salaire_net     Decimal  @db.Decimal(10, 2)\n  date_generation DateTime @default(now())\n\n  payRunId Int\n  payRun   PayRun @relation(fields: [payRunId], references: [id])\n\n  employeId Int\n  employe   Employes @relation(fields: [employeId], references: [id])\n\n  paiements Paiement[]\n}\n\nmodel PayRun {\n  id           Int                @id @default(autoincrement())\n  periodeDebut DateTime\n  periodeFin   DateTime\n  statut       PayRunStatut       @default(EN_COURS)\n  bulletins    BulletinsSalaire[]\n  typePayRun   TypePayRun         @default(MENSUEL)\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel Contrat {\n  id             Int         @id @default(autoincrement())\n  employeId      Int\n  type           TypeContrat\n  salaireFixe    Decimal?    @db.Decimal(10, 2)\n  tauxJournalier Decimal?    @db.Decimal(10, 2)\n  tauxHoraire    Decimal?    @db.Decimal(10, 2)\n  date_embauche  DateTime\n  date_arret     DateTime?\n\n  employe Employes @relation(fields: [employeId], references: [id])\n}\n\nmodel Pointages {\n  id        Int      @id @default(autoincrement())\n  employeId Int\n  date      DateTime // le jour du pointage\n  entree    DateTime // heure exacte d’arrivée\n  sortie    DateTime // heure exacte de départ\n\n  employe Employes @relation(fields: [employeId], references: [id])\n}\n\nmodel Paiement {\n  id            Int            @id @default(autoincrement())\n  montant       Decimal\n  mode          ModePaiement\n  statut        StatutPaiement\n  reference     String? // ex: numéro de transaction bancaire\n  date_paiement DateTime       @default(now())\n\n  bulletinId Int\n  bulletin   BulletinsSalaire @relation(fields: [bulletinId], references: [id])\n}\n\nenum ModePaiement {\n  ESPECES\n  VIREMENT\n  CHEQUE\n}\n\nenum StatutPaiement {\n  EN_ATTENTE\n  PAYE\n  ECHEC\n}\n\nenum Statut {\n  ACTIF\n  INACTIF\n}\n\nenum Role {\n  CAISSIER\n  EMPLOYE\n}\n\nenum TypeContrat {\n  CDI\n  CDD\n  JOURNALIER\n  HORAIRE\n}\n\nenum PayRunStatut {\n  EN_COURS\n  VALIDE\n  PAYE\n}\n\nenum TypePayRun {\n  MENSUEL\n  HEBDOMADAIRE\n  JOURNALIER\n}\n",
-  "inlineSchemaHash": "c3a9d42324fe10812b01ca0fed74ca43cab690b7b552a69e1aa29abd7300699b",
+  "inlineSchema": "// schema de la base données globale\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"./generated/entreprise\"\n}\n\ndatasource db {\n  provider = \"mysql\"\n  url      = env(\"DSN_ENTREPRISE_EXPRESSO_1759235527566\")\n}\n\nmodel Employes {\n  id            Int       @id @default(autoincrement())\n  nom           String\n  prenom        String\n  email         String    @unique\n  telephone     String    @unique\n  poste         String\n  date_embauche DateTime\n  date_arret    DateTime? // si le salarié quitte l’entreprise\n\n  typeContrat TypeContrat\n  role        Role        @default(EMPLOYE)\n  statut      Statut      @default(ACTIF)\n\n  bulletins BulletinsSalaire[]\n  Contrat   Contrat[]\n  pointage  Pointages[]\n}\n\nmodel BulletinsSalaire {\n  id              Int      @id @default(autoincrement())\n  mois            String\n  salaire_base    Decimal? @db.Decimal(10, 2)\n  deductions      Decimal  @default(0.00) @db.Decimal(10, 2)\n  salaire_net     Decimal  @db.Decimal(10, 2)\n  date_generation DateTime @default(now())\n\n  payRunId Int\n  payRun   PayRun @relation(fields: [payRunId], references: [id])\n\n  employeId Int\n  employe   Employes @relation(fields: [employeId], references: [id])\n\n  paiements Paiement[]\n}\n\nmodel PayRun {\n  id           Int                @id @default(autoincrement())\n  periodeDebut DateTime\n  periodeFin   DateTime\n  statut       PayRunStatut       @default(EN_COURS)\n  bulletins    BulletinsSalaire[]\n  typePayRun   TypePayRun         @default(MENSUEL)\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\nmodel Contrat {\n  id             Int         @id @default(autoincrement())\n  employeId      Int\n  type           TypeContrat\n  salaireFixe    Decimal?    @db.Decimal(10, 2)\n  tauxJournalier Decimal?    @db.Decimal(10, 2)\n  tauxHoraire    Decimal?    @db.Decimal(10, 2)\n  date_embauche  DateTime\n  date_arret     DateTime?\n\n  employe Employes @relation(fields: [employeId], references: [id])\n}\n\nmodel Pointages {\n  id        Int      @id @default(autoincrement())\n  employeId Int\n  date      DateTime // le jour du pointage\n  entree    DateTime // heure exacte d’arrivée\n  sortie    DateTime // heure exacte de départ\n\n  employe Employes @relation(fields: [employeId], references: [id])\n}\n\nmodel Paiement {\n  id            Int            @id @default(autoincrement())\n  montant       Decimal\n  mode          ModePaiement\n  statut        StatutPaiement\n  reference     String? // ex: numéro de transaction bancaire\n  date_paiement DateTime       @default(now())\n\n  bulletinId Int\n  bulletin   BulletinsSalaire @relation(fields: [bulletinId], references: [id])\n}\n\nenum ModePaiement {\n  ESPECES\n  VIREMENT\n  CHEQUE\n}\n\nenum StatutPaiement {\n  EN_ATTENTE\n  PAYE\n  ECHEC\n}\n\nenum Statut {\n  ACTIF\n  INACTIF\n}\n\nenum Role {\n  CAISSIER\n  EMPLOYE\n}\n\nenum TypeContrat {\n  CDI\n  CDD\n  JOURNALIER\n  HORAIRE\n}\n\nenum PayRunStatut {\n  EN_COURS\n  VALIDE\n  PAYE\n}\n\nenum TypePayRun {\n  MENSUEL\n  HEBDOMADAIRE\n  JOURNALIER\n}\n",
+  "inlineSchemaHash": "4a53664ab50a4d8a4b7fc55a354c3476c9bdff63af707cd56f523eb4ac2549b4",
   "copyEngine": true
 }
 config.dirname = '/'
@@ -291,7 +290,7 @@ config.compilerWasm = undefined
 
 config.injectableEdgeEnv = () => ({
   parsed: {
-    DSN_ENTREPRISE_ORANGE: typeof globalThis !== 'undefined' && globalThis['DSN_ENTREPRISE_ORANGE'] || typeof process !== 'undefined' && process.env && process.env.DSN_ENTREPRISE_ORANGE || undefined
+    DSN_ENTREPRISE_EXPRESSO_1759235527566: typeof globalThis !== 'undefined' && globalThis['DSN_ENTREPRISE_EXPRESSO_1759235527566'] || typeof process !== 'undefined' && process.env && process.env.DSN_ENTREPRISE_EXPRESSO_1759235527566 || undefined
   }
 })
 

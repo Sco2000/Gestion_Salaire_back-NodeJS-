@@ -1,0 +1,1 @@
+{"version":3,"file":"UserController.d.ts","sourceRoot":"","sources":["../../../src/globalDb/controllers/UserController.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,OAAO,EAAE,QAAQ,EAAE,YAAY,EAAE,MAAM,SAAS,CAAC;AAe1D,qBAAa,cAAc;WACZ,gBAAgB,CAAC,GAAG,EAAE,OAAO,EAAE,GAAG,EAAE,QAAQ,EAAE,IAAI,EAAE,YAAY;CAuD9E"}

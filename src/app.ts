@@ -7,6 +7,7 @@ import PayRunRoutes from './entrepriseDb/routes/PayRunRoutes'
 import PaeiementsRoutes from './entrepriseDb/routes/PaiementsRoutes'
 import { AuthMiddleware } from "./middlewares/AuthMiddleware";
 import { ErrorController } from "./middlewares/ErrorController";
+import SuperAdminRoutes from './globalDb/routes/superAdminRoutes'
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.get('/' , (req: Request , res: Response) => {
 
 app.use('/api/auth', AuthRoutes)
 app.use(AuthMiddleware.authMiddleware)
+app.use('/api/super-admin', SuperAdminRoutes)
 app.use('/api/employes', EmployeRoutes)
 app.use('/api/bulletins', BulletinsSalaireRoutes)
 app.use('/api/payrun', PayRunRoutes)
